@@ -10,7 +10,7 @@ The dataset and its description are available here: http://archive.ics.uci.edu/m
 
 The script run_analysis.R processes the data into a merged and tidy dataset, and then summarises the means and standard deviations for each subject and activity.
 
-The output of the script is a file called 'result.txt'. To read the file in R use 'read.table('result.txt', header = TRUE)'.
+The output of the script is a file called 'result.txt'. To read the file in R use "read.table('result.txt', header = TRUE)".
 
 Usage: 
 
