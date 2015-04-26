@@ -5,6 +5,8 @@ features <- read.table('features.txt')
 # some feature names have brackets "()", which when used as col.names get replaced with ".", which does not look good.
 # so we strip the brackets for aesthetic reasons
 col_names <- gsub("\\(\\)","",as.character(features[,2]))
+# We also fix some obviously bad naming from the original dataset
+col_names <- gsub('BodyBody','Body',col_names)
 
 # read training data sets, giving descriptive names for all columns
 subject_train <- read.table('train/subject_train.txt', col.names = 'subject')
@@ -27,17 +29,17 @@ one_data_set <- rbind(train, test)
 
 # grep features for std and mean measurements
 # Note the "\\(" selects only measurements labelled mean() (i.e. with brackets), other measurements labelled mean but without don't come with corresponding standard deviation, so we choose to ignore them here
-mean_and_std_column_indexes <- grep('std|mean\\(',features[,2])
+mean_and_std_column_indexes <- grep('std|mean\\(', features[,2])
 
 # we define the columns to extract from one_data_set.
 # need to add two added columns (subject and y) and an offset of 2 to the mean_and_std_column_indexes because of the two added columns at the beginning of the data frame
-columns_to_extract <- c(1,2,mean_and_std_column_indexes + 2)
+columns_to_extract <- c(1, 2, mean_and_std_column_indexes + 2)
 filtered_data_set <- one_data_set[,columns_to_extract]
 
 # Step 3: Use descriptive activity names to name the activities in the data set
 
 # read activity labels
-activity_labels <- read.table('activity_labels.txt',col.names = c('activity_id','activity_name'))
+activity_labels <- read.table('activity_labels.txt', col.names = c('activity_id','activity_name'))
 # merge data set with activity labels by activity_id (column activity_id exists in both tables)
 tidy_data_set <- merge(filtered_data_set, activity_labels)
 
@@ -50,10 +52,10 @@ tidy_data_set <- merge(filtered_data_set, activity_labels)
 # Group the data set by subject and activity
 group_by <- list(Subject = tidy_data_set$subject, Activity = tidy_data_set$activity_name)
 # calculate the aggregate mean on grouped measurements
-result_ <- aggregate(tidy_data_set[3:68],group_by, mean)
+result <- aggregate(tidy_data_set[3:68], group_by, mean)
 
 # finally order the result first by subject, then by activity
-result <- result_[order(result_[1],result_[2]),]
+result <- result[order(result[1],result[2]),]
 
 # and write result to a file
 write.table(result, file = "result.txt", row.names = FALSE)
