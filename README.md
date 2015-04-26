@@ -9,6 +9,7 @@ Source: http://archive.ics.uci.edu/ml/datasets/Human+Activity+Recognition+Using+
 The script run_analysis.R processes the data into a merged and tidy data set, and then summarises the means and standard deviations for each subject and activity.
 
 Usage: 
-# Download the zip file from http://archive.ics.uci.edu/ml/machine-learning-databases/00240/UCI%20HAR%20Dataset.zip
-# Unzip and set your working directory to "UCI\ HAR\ Dataset"
-# source('run_analysis.R')
+
+1. Download the zip file from http://archive.ics.uci.edu/ml/machine-learning-databases/00240/UCI%20HAR%20Dataset.zip
+2. Unzip and set your working directory to "UCI\ HAR\ Dataset"
+3. source('run_analysis.R')
